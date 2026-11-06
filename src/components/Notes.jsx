@@ -1,56 +1,53 @@
-
-import { useState } from 'react'
-import NoteCard from './NoteCard.jsx'
+import { useState } from "react";
+import NoteCard from "./NoteCard.jsx";
 
 function Notes() {
   const [notes, setNotes] = useState([
     {
       id: 1,
-      title: 'Review map and filter',
-      body: 'Redo the TodoMVC steps without looking at the guide.',
+      title: "Review map and filter",
+      body: "Redo the TodoMVC steps without looking at the guide.",
     },
     {
       id: 2,
-      title: 'Prepare for the quiz',
-      body: 'Practice writing one handler for many inputs.',
+      title: "Prepare for the quiz",
+      body: "Practice writing one handler for many inputs.",
     },
-  ])
+  ]);
 
-  const [form, setForm] = useState({ title: '', body: '' })
+  const [form, setForm] = useState({ title: "", body: "" });
 
   function handleChange(e) {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
-    }))
+    }));
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    const title = form.title.trim()
-    const body = form.body.trim()
+    const title = form.title.trim();
+    const body = form.body.trim();
 
-    if (!title || !body) return
+    if (!title || !body) return;
 
     const newNote = {
       id: crypto.randomUUID(),
       title,
       body,
-    }
+    };
 
-    setNotes((prevNotes) => [...prevNotes, newNote])
+    setNotes((prevNotes) => [...prevNotes, newNote]);
 
-    setForm({ title: '', body: '' })
+    setForm({ title: "", body: "" });
   }
 
   function handleDelete(id) {
-  setNotes((prevNotes) =>
-    prevNotes.filter((note) => note.id !== id)
-  )
-}
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+  }
 
   return (
     <div className="grid min-h-screen grid-cols-[420px_1fr]">
@@ -121,9 +118,13 @@ function Notes() {
             </li>
           ))}
         </ul>
+
+        {notes.length === 0 && (
+          <p className="text-lg text-[#949494]">No notes found</p>
+        )}
       </section>
     </div>
-  )
+  );
 }
 
-export default Notes
+export default Notes;
